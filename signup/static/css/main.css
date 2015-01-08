@@ -1,0 +1,30 @@
+#map {
+    height: 250px;    
+}
+
+body {
+    font-family: Monospace;
+    line-height: 185%;
+    
+}
+
+section {
+    font-size: 1.4em;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    margin-bottom: 25px;
+    
+}
+
+.crypto_input {
+    border: 1px dashed black !important;
+    border-bottom-style: solid !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-family: inherit !important;
+    font-size: 20px !important;
+    margin-bottom: 5px !important;
+}

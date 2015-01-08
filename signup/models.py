@@ -6,8 +6,8 @@ class Attendee(models.Model):
 
     email = models.EmailField(null=True, blank=True)
 
-    want_to_know = models.TextField()
-    can_help_with = models.TextField()
+    want_to_know = models.TextField(null=True, blank=True)
+    can_help_with = models.TextField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'attendee'

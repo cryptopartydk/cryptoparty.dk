@@ -1,16 +1,114 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head lang="en">
+<head>
+  <title>Cryptoparty København</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title></title>
+  <!-- Bootstrap -->
+  <link href="{% static 'css/bootstrap.min.css' %}"
+        rel="stylesheet" media="screen">
+  <link href="{% static 'css/leaflet.css' %}"
+        rel="stylesheet" media="screen">
+  <link href="{% static 'css/main.css' %}"
+        rel="stylesheet" media="screen">
 </head>
 <body>
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Cryptoparty København</h1>
+      <p>
+        <a href="http://bitbureauet.dk">Bitbureauet</a> og
+        <a href="http://prosa.dk/">PROSA</a> inviterer til cryptoparty søndag
+        d. 25. januar 2015 i PROSAs lokaler i København.
+        Adressen er <a href="http://findvej.dk/Vester%20Farimagsgade%2037a"
+                       target="_blank">
+        <strong>Vester Farimagsgade 37A</strong></a>.
+      </p>
+    </div>
+  </div>
+</section>
 
-<form method="POST">{% csrf_token %}
-  {{ form }}
-  <button type="submit">Tilmeld</button>
-</form>
+<section id="map"></section>
 
+<section class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        Til et cryptoparty lærer man at være <em>street wise</em> på internettet
+        og med teknologi generelt.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <p>
+        Man lærer at have sikker kommunikation over
+        chat og email, og man lærer hvordan man sikrer sig imod overvågning.
+      </p>
+    </div>
+  </div>
+</section>
 
+<hr />
+
+<section class="container">
+{% if success %}
+  WOOHOOO!
+{% else %}
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <h2>Tilmelding</h2>
+      <p>
+        Du kan tilmelde dig til cryptopartyet her til siden. I år beder vi
+        deltagerne om også at skrive hvis de har tekniske kompetencer, som de
+        kan lære fra sig (fx installation af PGP-software, Tor eller andet).
+      </p>
+      <p>
+        Hvis du vil holdes opdateret kan du angive din email og komme på
+        cryptoparty.dk mailinglisten.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <form method="POST" class="form-horizontal">{% csrf_token %}
+        Jeg hedder <input type="text" name="name" class="crypto_input" /><br />
+        Jeg vil vide mere om <br />
+        <textarea name="want_to_know" class="crypto_input" cols="30" rows="3"></textarea><br />
+        og/eller har viden om <br />
+        <textarea name="can_help_with" class="crypto_input" cols="30" rows="3"></textarea><br />
+        Min email er <input type="text" name="email" class="crypto_input" /><br />
+        <button type="submit">Tilmeld</button>
+      </form>
+    </div>
+
+  </div>
+
+{% endif %}
+</section>
+
+<hr />
+
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Kontakt</h2>
+      <p>
+        Hvis du har nogen spørgsmål, kan du kontakte Bitbureauet pr. mail på
+        <a href="mailto:bitbureauet@bitbureauet.dk">
+          bitbureauet@bitbureauet.dk
+        </a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/leaflet.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
+
+
