@@ -12,3 +12,6 @@ class Attendee(models.Model):
     class Meta:
         verbose_name = 'attendee'
         verbose_name_plural = 'attendees'
+
+    def __str__(self):
+        return u'{}'.format(self.name)
