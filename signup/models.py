@@ -13,5 +13,5 @@ class Attendee(models.Model):
         verbose_name = 'attendee'
         verbose_name_plural = 'attendees'
 
-    def __str__(self):
+    def __unicode__(self):
         return u'{}'.format(self.name)
