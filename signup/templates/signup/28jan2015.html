@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Cryptoparty København</h1>
+      <p>
+        <a href="http://bitbureauet.dk">Bitbureauet</a> og
+        <a href="http://prosa.dk/">PROSA</a> inviterer til cryptoparty søndag
+        <strong>d. 25. januar 2015 klokken 14:00</strong> i PROSAs lokaler i
+        København.<br />
+        Adressen er
+        <a href="http://findvej.dk/Vester%20Farimagsgade%2037a"
+           target="_blank">
+        <strong>Vester Farimagsgade 37A</strong></a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="map"></section>
+
+<section class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        Til et cryptoparty lærer man at være <em>street wise</em> på internettet
+        og med teknologi generelt.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <p>
+        Man lærer at have sikker kommunikation over
+        chat og email, og man lærer hvordan man sikrer sig imod overvågning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr />
+
+<section class="container">
+{% if success %}
+  <div class="row">
+    <div class="col-md-12 text-center">
+      Tak for din tilmelding! Vi ses <strong>søndag d. 25. januar!</strong>
+    </div>
+  </div>
+{% else %}
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Tilmelding</h2>
+      <p>
+        Du kan tilmelde dig til cryptopartyet her til siden. I år beder vi
+        deltagerne om også at skrive hvis de har tekniske kompetencer, som de
+        kan lære fra sig (fx installation af PGP-software, Tor eller andet).
+      </p>
+      <p>
+        Hvis du vil holdes opdateret kan du angive din email og komme på
+        cryptoparty.dk mailinglisten.
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <form method="POST" class="form-horizontal">{% csrf_token %}
+        Jeg hedder <input type="text" name="name" class="crypto_input" /><br />
+        Jeg vil vide mere om <br />
+        <textarea name="want_to_know" class="crypto_input" cols="30" rows="3"></textarea><br />
+        og/eller har viden om <br />
+        <textarea name="can_help_with" class="crypto_input" cols="30" rows="3"></textarea><br />
+        Min email er <input type="text" name="email" class="crypto_input" /><br />
+        <button type="submit">Tilmeld</button>
+      </form>
+    </div>
+
+  </div>
+
+{% endif %}
+</section>
+
+<hr />
+
+<section class="container">
+  <p>Mandag aften sendte vi følgende mail til alle tilmeldte. Her er den, hvis du har meldt dig til senere end det.</p>
+  <pre>Kære deltager,
+
+Bitbureauet og PROSAs cryptoparty rykker nærmere og vi har nu et
+program klart for dagen. Vi er overvældede over interessen og vi kan
+se, at det det er en god blanding af nybegyndere og kryptohajer. Vi
+håber I vil være med til at gøre dagen til en deltagersport, hvor vi
+hjælper hinanden med at lære og komme igang med at bruge kryptografi.
+Vi har planlagt et par oplæg til at skyde dagen igang og tre workshops
+om Tor, PGP og OTR kryptering, som I har udtrykt stor interesse for at
+høre mere om. Derudover er der god plads til at sætte sig sammen i
+interessegrupper og lave nye workshops på dagen.
+
+Cryptopartyet går ned i PROSAs lokaler på Vester Farimagsgade 37A, tæt
+på Vesterport station og Hovedbanegården.
+
+Program
+
+14:00 - 15:00
+- Velkomst v. PROSA og Bitbureauet
+- Introduktion til Internettet / v. Henrik Kramshøj, internetsamurai
+- Introduktion til kryptografi / v. Jens Christian Hillerup, Bitbureauet
+- Præsentation af workshops om Tor, PGP og OTR chat.
+
+15:00 - 15:15 PAUSE
+
+15:15 - 17:00 Workshops
+
+Vi fordeler os i lokalerne og går igang med de tre workshops. Formatet
+er meget løst, hvor vi hjælper hinanden til at komme videre.
+
+17:00 Programmet er slut, men man må godt blive og hygge til kl 18.00
+
+Vi kommer til at sælge Club-Mate for 20 kroner, så medbring nogle
+tyvere, hvis du har lyst til at prøve en ægte hackerdrik!
+
+Mvh.
+Bitbureauet</pre>
+</section>
+
+<section class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Kontakt</h2>
+      <p>
+        Hvis du har nogen spørgsmål, kan du kontakte Bitbureauet pr. mail på
+        <a href="mailto:bitbureauet@bitbureauet.dk">bitbureauet@bitbureauet.dk</a>.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
