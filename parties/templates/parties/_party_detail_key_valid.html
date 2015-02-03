@@ -1,0 +1,62 @@
+{% load cryptoparty_tags i18n sekizai_tags %}
+
+<div class="col-md-8">
+  <div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 10px">
+      <li role="presentation" class="active">
+        <a href="#preview-tab" role="tab" data-toggle="tab">Preview</a>
+      </li>
+      <li role="presentation">
+        <a href="#description-tab" role="tab" data-toggle="tab">Description</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="preview-tab">
+        <div id="preview">
+          {{ party.description|markup|safe }}
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="description-tab">
+        <textarea id="description">{{ party.description }}</textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <p>{% trans 'Key (for edit access)' %}:</p>
+  <p>{{ party.key }}</p>
+  <button id="submit-button">Submit</button>
+</div>
+
+{% addtoblock 'js' %}
+<script>
+  $('#submit-button').click(function() {
+    var description = $('textarea#description').val();
+    $.post(
+      '{% url 'parties:party-ajax-update' party.id %}',
+      {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'key': '{{ party.key }}',
+        'description': description
+      },
+      function(response_data) {
+        var data = JSON.parse(response_data);
+        console.log(data.description);
+        $('#preview').html(data.description);
+      }
+    );
+  });
+</script>
+{% endaddtoblock %}
+
+{% addtoblock 'css' %}
+  <style>
+    #description {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #eee;
+      resize: vertical;
+    }
+  </style>
+{% endaddtoblock %}

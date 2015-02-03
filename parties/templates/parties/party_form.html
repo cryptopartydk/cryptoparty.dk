@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered table-responsive">
+  <tr>
+    <th>
+      <a href="{% url 'parties:party-list' %}" class="btn btn-default">
+        <- Back to the parties
+      </a>
+    </th>
+    <td>
+
+    </td>
+  </tr>
+  <form action="" method="post" class="form">{% csrf_token %}
+    {{ form.as_table }}
+    <tr>
+      <th></th>
+      <td>
+        <button type="submit">Submit</button>
+      </td>
+    </tr>
+  </form>
+</table>
+
+{% endblock %}

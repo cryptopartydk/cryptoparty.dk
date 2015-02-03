@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <a href="{% url 'parties:party-create' %}" class="btn btn-default">
+    Create a party!
+  </a>
+
+<table class="table table-bordered table-responsive">
+  <thead>
+    <tr>
+      <th>
+        Title
+      </th>
+      <th>
+        When
+      </th>
+      <th>
+        Where
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for party in parties %}
+    <tr>
+      <td>
+        <a href="{% url 'parties:party-detail' party.slug %}">
+            {{ party.title }}
+        </a>
+      </td>
+      <td>
+        {{ party.when }}
+      </td>
+      <td>
+        {{ party.venue_name }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
