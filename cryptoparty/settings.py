@@ -15,8 +15,6 @@ import environ
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env()
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 TEMPLATE_DEBUG = DEBUG
@@ -79,9 +77,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+src = lambda x: os.path.join(os.path.dirname(__file__), x)
+
+STATIC_ROOT = src('static')
+MEDIA_ROOT = src('media')
+
+STATICFILES_DIRS = (
+    src('static_src'),
+)
 
 TEMPLATE_DIRS = [
-    os.path.join(BASE_DIR, 'templates')
+    src('templates'),
 ]
+
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')

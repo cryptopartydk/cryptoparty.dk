@@ -4,3 +4,4 @@ psycopg2==2.5.4
 django-extensions==1.5.0
 CommonMark==0.5.4
 django-sekizai==0.8.1
+django-paloma==1.1.0

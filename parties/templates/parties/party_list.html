@@ -1,44 +1,53 @@
 {% extends 'base.html' %}
+{% load sekizai_tags i18n %}
 
 {% block content %}
 
-  <a href="{% url 'parties:party-create' %}" class="btn btn-default">
-    Create a party!
-  </a>
+  <h1>
+    {% trans 'Cryptoparties in Denmark' %}
+  </h1>
 
-<table class="table table-bordered table-responsive">
-  <thead>
-    <tr>
-      <th>
-        Title
-      </th>
-      <th>
-        When
-      </th>
-      <th>
-        Where
-      </th>
-    </tr>
-  </thead>
+  <div class="row">
+    <div class="col-md-12" id="list-wrapper">
 
-  <tbody>
-  {% for party in parties %}
-    <tr>
-      <td>
-        <a href="{% url 'parties:party-detail' party.slug %}">
-            {{ party.title }}
-        </a>
-      </td>
-      <td>
-        {{ party.when }}
-      </td>
-      <td>
-        {{ party.venue_name }}
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+      <h3>{% trans 'Upcoming parties' %}:</h3>
+      {% include 'parties/_party_list_table.html' with parties=upcoming_parties %}
 
+      <h3>{% trans 'Past parties' %}:</h3>
+      {% include 'parties/_party_list_table.html' with parties=past_parties %}
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3 id="create-party">
+        {% trans 'Start a party' %}
+      </h3>
+      <div id="form-wrapper" style="display: none;">
+        {% include 'parties/party_form.html' %}
+      </div>
+    </div>
+  </div>
+
+  {% addtoblock 'js' %}
+    <script>
+      var form_wrapper = $('#form-wrapper');
+
+      $('#create-party').click(function() {
+        form_wrapper.show();
+      });
+    </script>
+  {% endaddtoblock %}
+
+  {% addtoblock 'js' %}
+    <style>
+      #create-party {
+        border: 1px solid #ddd;
+        padding: 5px;
+        cursor: pointer;
+      }
+    </style>
+  {% endaddtoblock %}
 
 {% endblock %}

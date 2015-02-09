@@ -1,0 +1,21 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+  tasks:
+    - apt: update_cache=yes upgrade=full
+
+    - apt: name={{item}} state=latest
+      with_items:
+        - python3-dev
+        - python3-pip
+        - gitolite3
+        - postgresql-9.3
+        - postgresql-server-dev-9.3
+
+    - pip: executable=pip3
+           chdir=/vagrant
+           requirements=/vagrant/requirements.txt
+
+    - django_manage: app_path=/vagrant/
+                     command=migrate

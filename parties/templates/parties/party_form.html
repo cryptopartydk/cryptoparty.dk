@@ -1,27 +1,78 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<table class="table table-bordered table-responsive">
-  <tr>
-    <th>
-      <a href="{% url 'parties:party-list' %}" class="btn btn-default">
-        <- Back to the parties
-      </a>
-    </th>
-    <td>
-
-    </td>
-  </tr>
-  <form action="" method="post" class="form">{% csrf_token %}
-    {{ form.as_table }}
+<form action="" method="post" class="form">{% csrf_token %}
+  <table class="table table-bordered table-responsive">
     <tr>
-      <th></th>
+      <th>
+        {{ form.title.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.title %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.description.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.description %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.when.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.when datetime=True %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.venue.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.venue %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.address.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.address %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.city.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.city %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.postal_code.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.postal_code %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{ form.creator_email.label }}
+      </th>
+      <td>
+        {% include "_form_field.html" with field=form.creator_email %}
+      </td>
+    </tr>
+    <tr>
+      <th>
+      </th>
       <td>
         <button type="submit">Submit</button>
       </td>
     </tr>
-  </form>
-</table>
 
-{% endblock %}
+  </table>
+</form>
+
+{% include '_bootstrap_datetimepicker.html' with element='#when-group' %}

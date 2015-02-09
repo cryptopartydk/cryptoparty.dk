@@ -1,6 +1,8 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from django_extensions.db.fields import AutoSlugField, UUIDField
+from parties.managers import PartyQuerySet
 
 
 class Party(models.Model):
@@ -15,15 +17,25 @@ class Party(models.Model):
 
     when = models.DateTimeField(help_text='YYYY-MM-DD HH:MM:SS')
 
-    venue_name = models.CharField(max_length=100)
+    venue = models.CharField(max_length=100)
     address = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
     postal_code = models.IntegerField(null=True, blank=True)
 
+    public = models.BooleanField(default=False)
+
+    creator_email = models.EmailField(null=True, blank=True)
+
     key = UUIDField()
 
+    objects = PartyQuerySet.as_manager()
+
+    class Meta:
+        verbose_name = 'party'
+        verbose_name_plural = 'parties'
+
     def __str__(self):
-        return '"{}" at {}'.format(self.title, self.venue_name)
+        return '"{}" at {}'.format(self.title, self.venue)
 
 
 class Attendee(models.Model):
@@ -32,8 +44,8 @@ class Attendee(models.Model):
     email = models.EmailField(null=True, blank=True)
 
     CRYPTO_LEVELS = [
-        ('knows', 'Knows crypto'),
-        ('newbie', 'Does not know crypto')
+        ('knows', _('Knows crypto')),
+        ('newbie', _('Does not know crypto')),
     ]
 
     crypto_level = models.CharField(choices=CRYPTO_LEVELS, max_length=20)

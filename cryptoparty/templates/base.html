@@ -25,6 +25,31 @@
       {% block content %}{% endblock %}
     </div>
 
+    <footer class="footer">
+      <div class="container">
+        {% block footer %}{% endblock %}
+      </div>
+    </footer>
+    {% addtoblock 'css' %}
+      <style>
+        html {
+          position: relative !important;
+          min-height: 100% !important;
+        }
+        body {
+          /* Margin bottom by footer height */
+          margin-bottom: 60px !important;
+        }
+        .footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 60px;
+        }
+      </style>
+    {% endaddtoblock %}
+
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     {% render_block 'js' %}

@@ -1,0 +1,12 @@
+<div class="form-group">
+  <div class='input-group date' id='{{ field.name }}-group'>
+    {% if datetime %}
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar">
+      </span>
+    </span>
+    {% endif %}
+    {{ field.errors }}
+    {{ field }}
+  </div>
+</div>

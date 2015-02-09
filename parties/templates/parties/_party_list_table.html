@@ -1,0 +1,33 @@
+<table class="table table-bordered table-responsive">
+  <thead>
+  <tr>
+    <th>
+      Title
+    </th>
+    <th>
+      When
+    </th>
+    <th>
+      Where
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {% for party in parties %}
+    <tr>
+      <td>
+        <a href="{% url 'parties:party-detail' party.slug %}">
+          {{ party.title }}
+        </a>
+      </td>
+      <td>
+        {{ party.when }}
+      </td>
+      <td>
+        {{ party.venue }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
