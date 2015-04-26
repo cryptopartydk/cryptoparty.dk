@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import environ
+from django.core.urlresolvers import reverse_lazy
 
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env()
@@ -24,15 +25,25 @@ ALLOWED_HOSTS = [x for x in env('ALLOWED_HOSTS').split(',') if x]
 # Application definition
 
 INSTALLED_APPS = (
+    'flat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # 'rest_framework',
+    # 'debug_toolbar',
+    # 'corsheaders',
+
     'sekizai',
-    'signup',
+    'allauth',
+    'allauth.account',
+
     'parties',
+    'people',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -45,6 +56,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'sekizai.context_processors.sekizai',
+    "allauth.account.context_processors.account",
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,20 +80,17 @@ ROOT_URLCONF = 'cryptoparty.urls'
 
 WSGI_APPLICATION = 'cryptoparty.wsgi.application'
 
+SITE_ID = 1
+
 DATABASES = {
     'default': env.db()
 }
 
 LANGUAGE_CODE = 'da-dk'
-
 TIME_ZONE = 'Europe/Copenhagen'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
 STATIC_URL = '/static/'
 
 src = lambda x: os.path.join(os.path.dirname(__file__), x)
@@ -95,3 +111,4 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')

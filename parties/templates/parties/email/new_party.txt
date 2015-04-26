@@ -3,15 +3,11 @@
 
 {% url 'parties:party-detail' party.slug as party_url %}
 
-{% blocktrans with party_key=party.key%}Hello there. You are doing a cryptoparty! How awesome is that!?
+{% blocktrans %}Hello there. You are doing a cryptoparty! How awesome is that!?
 
 Here is a link you can use to share with the world:
 
 https://{{host}}{{party_url}}
-
-And here is a link you can use to edit the Cryptoparty with:
-
-https://{{host}}{{party_url}}?key={{party_key}}
 
 Remember to check <LINK> for guides and other stuff to help with your cryptoparty!
 

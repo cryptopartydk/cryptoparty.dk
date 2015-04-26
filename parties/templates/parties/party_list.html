@@ -3,51 +3,26 @@
 
 {% block content %}
 
-  <h1>
-    {% trans 'Cryptoparties in Denmark' %}
-  </h1>
-
   <div class="row">
     <div class="col-md-12" id="list-wrapper">
 
-      <h3>{% trans 'Upcoming parties' %}:</h3>
-      {% include 'parties/_party_list_table.html' with parties=upcoming_parties %}
+      <h2>{% trans 'Upcoming parties' %}:</h2>
+      {% if upcoming_parties %}
+        {% include 'parties/_party_list_table.html' with parties=upcoming_parties %}
+      {% else %}
+        <h3>
+        {% trans 'There are no upcoming parties!' %} <a href="{% url 'parties:party-create' %}">{% trans 'Start one?' %}</a>
+        </h3>
+      {% endif %}
 
-      <h3>{% trans 'Past parties' %}:</h3>
-      {% include 'parties/_party_list_table.html' with parties=past_parties %}
+        <hr />
+
+      {% if past_parties %}
+        <h4>{% trans 'Past parties' %}:</h4>
+        {% include 'parties/_party_list_table.html' with parties=past_parties %}
+      {% endif %}
 
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h3 id="create-party">
-        {% trans 'Start a party' %}
-      </h3>
-      <div id="form-wrapper" style="display: none;">
-        {% include 'parties/party_form.html' %}
-      </div>
-    </div>
-  </div>
-
-  {% addtoblock 'js' %}
-    <script>
-      var form_wrapper = $('#form-wrapper');
-
-      $('#create-party').click(function() {
-        form_wrapper.show();
-      });
-    </script>
-  {% endaddtoblock %}
-
-  {% addtoblock 'js' %}
-    <style>
-      #create-party {
-        border: 1px solid #ddd;
-        padding: 5px;
-        cursor: pointer;
-      }
-    </style>
-  {% endaddtoblock %}
 
 {% endblock %}

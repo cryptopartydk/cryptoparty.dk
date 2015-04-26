@@ -1,13 +1,13 @@
+from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
-from django_extensions.db.fields import AutoSlugField, UUIDField
+from django_extensions.db.fields import AutoSlugField
 from parties.managers import PartyQuerySet
 
 
 class Party(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True, auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     title = models.CharField(max_length=100)
 
@@ -24,9 +24,11 @@ class Party(models.Model):
 
     public = models.BooleanField(default=False)
 
-    creator_email = models.EmailField(null=True, blank=True)
-
-    key = UUIDField()
+    organizers = models.ManyToManyField(
+        'auth.User',
+        blank=True,
+        related_name='parties'
+    )
 
     objects = PartyQuerySet.as_manager()
 
@@ -37,22 +39,5 @@ class Party(models.Model):
     def __str__(self):
         return '"{}" at {}'.format(self.title, self.venue)
 
-
-class Attendee(models.Model):
-    party = models.ForeignKey('parties.Party')
-    name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-
-    CRYPTO_LEVELS = [
-        ('knows', _('Knows crypto')),
-        ('newbie', _('Does not know crypto')),
-    ]
-
-    crypto_level = models.CharField(choices=CRYPTO_LEVELS, max_length=20)
-
-    class Meta:
-        verbose_name = 'attendee'
-        verbose_name_plural = 'attendees'
-
-    def __unicode__(self):
-        return u'{}'.format(self.name)
+    def get_absolute_url(self):
+        return reverse('parties:party-detail', kwargs={'slug': self.slug})

@@ -1,78 +1,18 @@
-<form action="" method="post" class="form">{% csrf_token %}
-  <table class="table table-bordered table-responsive">
-    <tr>
-      <th>
-        {{ form.title.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.title %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.description.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.description %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.when.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.when datetime=True %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.venue.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.venue %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.address.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.address %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.city.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.city %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.postal_code.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.postal_code %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {{ form.creator_email.label }}
-      </th>
-      <td>
-        {% include "_form_field.html" with field=form.creator_email %}
-      </td>
-    </tr>
-    <tr>
-      <th>
-      </th>
-      <td>
-        <button type="submit">Submit</button>
-      </td>
-    </tr>
+{% extends 'base.html' %}
+{% load sekizai_tags i18n %}
 
-  </table>
+{% block content %}
+
+<form action="" method="post" class="form">{% csrf_token %}
+  {% include "_form_field.html" with field=form.title %}
+  {% include "_form_field.html" with field=form.description %}
+  {% include "_form_field.html" with field=form.when datetime=True %}
+  {% include "_form_field.html" with field=form.venue %}
+  {% include "_form_field.html" with field=form.address %}
+  {% include "_form_field.html" with field=form.city %}
+  {% include "_form_field.html" with field=form.postal_code %}
+  {% include "_form_field.html" with field=form.public %}
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-{% include '_bootstrap_datetimepicker.html' with element='#when-group' %}
+{% endblock %}

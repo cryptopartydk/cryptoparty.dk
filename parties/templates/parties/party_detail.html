@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
-{% load cryptoparty_tags i18n %}
+{% load parties_tags i18n %}
 
 {% block content %}
-  <table class="table table-bordered table-responsive">
-    <tr><td>
-    <a href="{% url 'parties:party-list' %}" class="btn btn-default">
-      <- Back to the parties
-    </a>
-    </td></tr>
-  </table>
   <h2>{{ party.title }}</h2>
+
   <hr />
 
   <div class="row">
-    {% if valid_key %}
-      {% include 'parties/_party_detail_key_valid.html' %}
-    {% else %}
-      {% include 'parties/_party_detail_key_invalid.html' %}
-    {% endif %}
+    <div class="col-md-8">
+      {{ party.description|markup|safe }}
+    </div>
+
+    <div class="col-md-4">
+      {% if user in party.organizers.all %}
+        <a href="{% url 'parties:party-edit' party.slug %}">Edit</a>
+      {% endif %}
+    </div>
   </div>
+
 {% endblock %}

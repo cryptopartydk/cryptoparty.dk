@@ -1,0 +1,14 @@
+[Unit]
+Description=Cryptoparty uWSGI
+After=syslog.target
+
+[Service]
+ExecStart=/usr/local/bin/uwsgi /srv/cryptoparty/uwsgi_conf.ini --die-on-term
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
