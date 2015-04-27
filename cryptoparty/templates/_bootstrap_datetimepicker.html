@@ -1,0 +1,19 @@
+{% load sekizai_tags staticfiles %}
+{% addtoblock 'css' %}
+<link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}" />
+{% endaddtoblock %}
+
+{% addtoblock 'js' %}
+<script src="{% static 'js/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+<script>
+  $('{{ element }}').datetimepicker(
+    {
+      format: "YYYY-MM-DD HH:mm"
+      {% if default %}
+        ,defaultDate: "{{ default }}"
+      {% endif %}
+    }
+  );
+</script>
+{% endaddtoblock %}

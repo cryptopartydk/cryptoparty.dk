@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Cryptoparty.dk - Dit privatliv start her</h1>
+    <p>
+      Et Cryptoparty er en begivenhed hvor borgere lærer hinanden omkring sikring af deres privatliv og kommunikation på internettet.<br />
+      På disse sider kan du se hvilke Cryptoparties der er rundt omkring i Danmark. Du kan også starte dit eget!
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Start dit eget party!</h2>
+      <p>
+        Det kræver ikke meget at stable et Cryptoparty på benene.
+        Følg guiden og få din egen fest op og stå!
+      </p>
+      <p>
+        <a class="btn btn-default" href="#" role="button">Læs guiden &raquo;</a>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h2>Kommende parties</h2>
+      <ul>
+        {% for party in upcoming %}
+          <li>
+
+            <a href="{% url 'parties:party-detail' slug=party.slug %}">
+              {{ party.when }} - {{ party.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p>
+        <a class="btn btn-default" href="{% url 'parties:party-list' %}" role="button">
+          Se alle &raquo;
+        </a>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h2>Tidligere parties</h2>
+      <ul>
+        {% for party in past %}
+          <li>
+            <a href="{% url 'parties:party-detail' slug=party.slug %}">
+              {{ party.when }} - {{ party.title }}
+            </a>
+          </li>
+        {% empty %}
+          Der er ingen parties i fortiden.
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+

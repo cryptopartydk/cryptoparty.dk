@@ -1,0 +1,59 @@
+---
+
+- git:
+    repo: https://github.com/cryptopartydk/cryptoparty.dk.git
+    version: "{{ git_version }}"
+    dest: /srv/cryptoparty
+
+- file:
+    state: directory
+    recurse: yes
+    owner: "{{ www_user }}"
+    group: "{{ www_user }}"
+    path: "/srv/cryptoparty"
+
+- pip:
+    requirements: /srv/cryptoparty/requirements.txt
+    chdir: /srv/cryptoparty
+    executable: pip3
+    virtualenv: /srv/cryptoparty/virtualenv
+    virtualenv_command: pyvenv
+
+- template:
+    src: env.j2
+    dest: /srv/cryptoparty/cryptoparty/.env
+
+- template:
+    src: cryptoparty-uwsgi.service.j2
+    dest: /lib/systemd/system/cryptoparty-uwsgi.service
+
+- template:
+    src: uwsgi_conf.ini.j2
+    dest: /srv/cryptoparty/uwsgi_conf.ini
+
+- template:
+    src: nginx_site.j2
+    dest: /etc/nginx/sites-available/cryptoparty
+
+- file:
+    state: link
+    src: /etc/nginx/sites-available/cryptoparty
+    path: /etc/nginx/sites-enabled/cryptoparty
+
+- django_manage:
+    app_path: /srv/cryptoparty/
+    command: migrate
+    virtualenv: /srv/cryptoparty/virtualenv/
+
+- django_manage:
+    app_path: /srv/cryptoparty/
+    command: collectstatic
+    virtualenv: /srv/cryptoparty/virtualenv/
+
+- service:
+    name: nginx
+    state: restarted
+
+- service:
+    name: cryptoparty-uwsgi
+    state: restarted

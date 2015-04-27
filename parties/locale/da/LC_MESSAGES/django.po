@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-08 18:24+0100\n"
+"PO-Revision-Date: 2015-03-08 18:25+0100\n"
+"Last-Translator: Víðir Valberg Guðmundsson <vg@rabotnik.coop>\n"
+"Language-Team: \n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#: templates/parties/email/new_party.txt:6
+#, python-format
+msgid ""
+"Hello there. You are doing a cryptoparty! How awesome is that!?\n"
+"\n"
+"Here is a link you can use to share with the world:\n"
+"\n"
+"https://%(host)s%(party_url)s\n"
+"\n"
+"Remember to check <LINK> for guides and other stuff to help with your "
+"cryptoparty!\n"
+"\n"
+"Have a nice day and we look forward to hear about your awesome "
+"cryptoparty!\n"
+"\n"
+"--\n"
+"The team at cryptoparty.dk"
+msgstr ""
+
+#: templates/parties/party_list.html:9
+msgid "Upcoming parties"
+msgstr "Kommende parties"
+
+#: templates/parties/party_list.html:14
+msgid "There are no upcoming parties!"
+msgstr "Der er ingen kommende parties!"
+
+#: templates/parties/party_list.html:14
+msgid "Start one?"
+msgstr "Start et?"
+
+#: templates/parties/party_list.html:21
+msgid "Past parties"
+msgstr "Afholdte parties"
+
+#: views.py:49
+msgid "Your cryptoparty has been created!"
+msgstr "Dit cryptoparty er nu oprettet!"
+
+#~ msgid "Anonymous"
+#~ msgstr "Anonym"
+
+#~ msgid "You are now signed up!"
+#~ msgstr "Du er nu tilmeldt!"
+
+#~ msgid "Knows crypto"
+#~ msgstr "Kan krypto"
+
+#~ msgid "Does not know crypto"
+#~ msgstr "Kan ikke krypto"
+
+#~ msgid "Public"
+#~ msgstr "Offentlig"
+
+#~ msgid "Not public"
+#~ msgstr "Ikke offentlig"
+
+#~ msgid "Hide from public"
+#~ msgstr "Gem fra offentligheden"
+
+#~ msgid "Make public"
+#~ msgstr "Gør offentlig"
+
+#~ msgid "Key (for edit access)"
+#~ msgstr "Nøgle (for redigér-adgang)"
+
+#~ msgid "Address"
+#~ msgstr "Adresse"
+
+#~ msgid "City"
+#~ msgstr "By"
+
+#~ msgid "Postal code"
+#~ msgstr "Postnummer"
+
+#~ msgid "Contact email"
+#~ msgstr "Kontakt email"
+
+#~ msgid "Save"
+#~ msgstr "Gem"
+
+#~ msgid "Last update"
+#~ msgstr "Sidst opdateret"
+
+#~ msgid "Cryptoparties in Denmark"
+#~ msgstr "Cryptoparties i Danmark"
+
+#~ msgid "Start a party"
+#~ msgstr "Start et party"

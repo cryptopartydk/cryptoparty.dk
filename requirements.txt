@@ -1,3 +1,9 @@
-Django==1.7.3
+Django==1.8
 django-environ==0.3.0
-psycopg2==2.5.4
+psycopg2==2.6
+django-extensions==1.5.2
+CommonMark==0.5.4
+-e git+https://github.com/ojii/django-sekizai.git@master#egg=sekizai
+django-paloma==1.1.1
+django-flat-theme==0.9.3
+django-allauth==0.19.1

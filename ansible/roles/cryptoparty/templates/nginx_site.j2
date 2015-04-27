@@ -1,0 +1,26 @@
+upstream cryptoparty_app {
+  server unix:///srv/cryptoparty/cryptoparty.sock;
+}
+
+server {
+  listen 80;
+  server_name {{ hostnames }};
+
+  access_log   /var/log/nginx/cryptoparty.access_log;
+  error_log   /var/log/nginx/cryptoparty.error_log;
+
+  location / {
+    include uwsgi_params;
+    uwsgi_pass cryptoparty_app;
+  }
+
+  location /static {
+    alias /srv/cryptoparty/cryptoparty/static/;
+    autoindex off;
+  }
+
+  location /media {
+    alias /srv/cryptoparty/cryptoparty/media/;
+    autoindex off;
+  }
+}

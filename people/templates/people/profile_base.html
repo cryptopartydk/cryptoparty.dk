@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+{#    <h1>Page for {{ user.username }}</h1>#}
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            {{ user.username }}
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li>
+                <a href="{% url 'profile' %}">
+                  {% trans 'Profile' %}
+                </a>
+              </li>
+              <li>
+{#                <a href="{% url 'two_factor:profile' %}">#}
+{#                  {% trans 'Two factor authentication' %}#}
+{#                </a>#}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-9">
+        {% block profile_content %}{% endblock %}
+      </div>
+    </div>
+
+{% endblock %}

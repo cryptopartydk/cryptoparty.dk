@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load sekizai_tags i18n %}
+
+{% block content %}
+
+    <a class="btn btn-primary" href="{% url 'parties:party-create' %}">
+      <i class="glyphicon glyphicon-bullhorn"></i>
+      Opret Cryptoparty
+    </a>
+
+
+  <div class="row">
+    <div class="col-md-12" id="list-wrapper">
+
+      <h2>{% trans 'Upcoming parties' %}:</h2>
+      {% if upcoming_parties %}
+        {% include 'parties/_party_list_table.html' with parties=upcoming_parties %}
+      {% else %}
+        <h3>
+        {% trans 'There are no upcoming parties!' %} <a href="{% url 'parties:party-create' %}">{% trans 'Start one?' %}</a>
+        </h3>
+      {% endif %}
+
+        <hr />
+
+      {% if past_parties %}
+        <h4>{% trans 'Past parties' %}:</h4>
+        {% include 'parties/_party_list_table.html' with parties=past_parties %}
+      {% endif %}
+
+    </div>
+  </div>
+
+{% endblock %}

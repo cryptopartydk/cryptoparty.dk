@@ -1,0 +1,14 @@
+[uwsgi]
+uid={{ www_user }}
+gid={{ www_user }}
+home=/srv/cryptoparty/virtualenv
+chdir=/srv/cryptoparty/
+module=cryptoparty.wsgi:application
+master=True
+pidfile2=/srv/cryptoparty/cryptoparty.pid
+touch-reload=True
+vacuum=True
+max-requests=5000
+socket=/srv/cryptoparty/cryptoparty.sock
+chmod-socket=666
+logto=/srv/cryptoparty/cryptoparty.log

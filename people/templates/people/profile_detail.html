@@ -1,0 +1,21 @@
+{% extends 'people/profile_base.html' %}
+{% load i18n %}
+
+{% block profile_content %}
+<ul class="list-unstyled">
+  <li>
+    <strong>{% trans 'Username' %}:</strong> {{ profile.user.username }}
+  </li>
+  <li>
+    <strong>{% trans 'Email' %}:</strong> {{ profile.user.email }}
+  </li>
+</ul>
+
+<h3>{% trans 'Your parties' %}:</h3>
+{% include 'parties/_party_list_table.html' with parties=profile.user.parties.all %}
+  <a class="btn btn-primary" href="{% url 'parties:party-create' %}">
+    <i class="glyphicon glyphicon-bullhorn"></i>
+    Opret Cryptoparty
+  </a>
+
+{% endblock %}
