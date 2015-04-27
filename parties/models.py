@@ -26,7 +26,11 @@ class Party(models.Model):
 
     when = models.DateTimeField(help_text='YYYY-MM-DD HH:MM:SS')
 
-    venue = models.ForeignKey(Venue, related_query_name="parties_here")
+    venue = models.ForeignKey(
+        Venue,
+        related_query_name="parties_here",
+        null=True
+    )
 
     public = models.BooleanField(default=False)
 

@@ -12,14 +12,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='party',
-            name='organizers',
-            field=models.ManyToManyField(related_name='organizing_parties', blank=True, to=settings.AUTH_USER_MODEL),
+            name='venue',
         ),
         migrations.AlterField(
             model_name='party',
-            name='venue',
-            field=models.ForeignKey(related_query_name='parties_here', to='parties.Venue'),
+            name='organizers',
+            field=models.ManyToManyField(blank=True, related_name='organizing_parties', to=settings.AUTH_USER_MODEL),
         ),
     ]
