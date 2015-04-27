@@ -7,12 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('parties', '0002_auto_20150427_2208'),
+        ('parties', '0002_auto_20150428_0032'),
     ]
 
     operations = [
-        migrations.RemoveField(
+        migrations.AddField(
             model_name='party',
-            name='address',
+            name='venue',
+            field=models.ForeignKey(related_query_name='parties_here', to='parties.Venue', null=True),
         ),
     ]
