@@ -4,7 +4,7 @@ from django.views.generic import CreateView, DetailView, UpdateView
 from django.utils.translation import ugettext_lazy as _
 from paloma import TemplateMail
 
-from .models import Party
+from .models import Party, Venue
 from .forms import PartyForm
 
 
@@ -38,9 +38,22 @@ class PartyCreate(CreateView):
     form_class = PartyForm
 
     def form_valid(self, form):
+
+        venue = form.cleaned_data.get('venue')
+        venue_name = form.cleaned_data.get('venue_name')
+        venue_address = form.cleaned_data.get('venue_address')
+
+        party = form.save(commit=False)
+        if not venue and venue_name:
+            party.venue = Venue.objects.create(
+                name=venue_name,
+                address=venue_address,
+            )
+        party.save()
+
         user = self.request.user
-        party = form.save()
         party.organizers.add(user)
+
         party.save()
 
         context = {
@@ -61,7 +74,7 @@ class PartyCreate(CreateView):
 
         return HttpResponseRedirect(
             reverse_lazy(
-                'parties:party-update',
+                'parties:party-detail',
                 kwargs={'slug': party.slug}
             )
         )

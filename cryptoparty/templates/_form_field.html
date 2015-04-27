@@ -3,35 +3,52 @@
 <div class="form-group" id="{{ field.name }}-group">
   {{ field.label }}
 
-  {% if datetime %}<div class="input-group">{% endif %}
+  {% if datetime %}
+    <div class="input-group">{% endif %}
 
   {{ field.errors }}
   {{ field }}
 
   {% if datetime %}
-  <span class="input-group-addon">
+    <span class="input-group-addon">
     <span class="glyphicon glyphicon-calendar"></span>
   </span>
-  </div>
+    </div>
   {% endif %}
 </div>
 
-{% if datetime %}
-  {% addtoblock 'js' %}
+{% addtoblock 'js' %}
+  {% if datetime %}
     <script src="{% static 'js/moment.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
 
     <script type="text/javascript">
       $(function () {
         $('#{{ field.name }}-group .input-group').datetimepicker({
-          {% if field|date:'Y-m-d H:i' %}'defaultDate': '{{ default }}',{% endif %}
+          {% if field|date:'Y-m-d H:i' %}'defaultDate':
+            '{{ default }}',{% endif %}
           'format': 'YYYY-MM-DD HH:mm'
         });
       });
     </script>
-  {% endaddtoblock %}
+  {% endif %}
 
-  {% addtoblock 'css' %}
-    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}" />
-  {% endaddtoblock %}
-{% endif %}
+  {% if address %}
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/dawa-autocomplete.js' %}"></script>
+    <script>
+      $('#adresse-autocomplete').dawaautocomplete({
+        error: function (xhr, status, error) {
+          alert('Der opstod en fejl: ' + status + " - " + error);
+          console.log(xhr)
+        }
+      });
+    </script>
+  {% endif %}
+{% endaddtoblock %}
+
+{% addtoblock 'css' %}
+  <link rel="stylesheet"
+        href="{% static 'css/bootstrap-datetimepicker.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"/>
+{% endaddtoblock %}

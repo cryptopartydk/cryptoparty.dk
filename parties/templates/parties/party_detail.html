@@ -12,6 +12,9 @@
     </div>
 
     <div class="col-md-4">
+      <h3>{{ party.when }}</h3>
+      <h3>{{ party.venue.name }}</h3>
+      <h3>{{ party.venue.address }}</h3>
       {% if user in party.organizers.all %}
         <a href="{% url 'parties:party-edit' party.slug %}">Edit</a>
       {% endif %}

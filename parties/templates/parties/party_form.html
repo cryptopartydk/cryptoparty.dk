@@ -8,9 +8,8 @@
   {% include "_form_field.html" with field=form.description %}
   {% include "_form_field.html" with field=form.when datetime=True %}
   {% include "_form_field.html" with field=form.venue %}
-  {% include "_form_field.html" with field=form.address %}
-  {% include "_form_field.html" with field=form.city %}
-  {% include "_form_field.html" with field=form.postal_code %}
+  {% include "_form_field.html" with field=form.venue_name %}
+  {% include "_form_field.html" with field=form.venue_address address=True %}
   {% include "_form_field.html" with field=form.public %}
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
