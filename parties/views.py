@@ -1,17 +1,19 @@
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.http import HttpResponseRedirect, Http404
+from django.views.generic import (
+    CreateView, DetailView, UpdateView, TemplateView,
+)
 from django.utils.translation import ugettext_lazy as _
 from paloma import TemplateMail
+from cryptoparty.mixins import LoginRequiredMixin
 
 from .models import Party, Venue
 from .forms import PartyForm
 
 
-class PartyList(CreateView):
+class PartyList(TemplateView):
     model = Party
     template_name = 'parties/party_list.html'
-    form_class = PartyForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,14 +27,20 @@ class PartyDetail(DetailView):
     template_name = 'parties/party_detail.html'
     context_object_name = 'party'
 
+    def dispatch(self, request, *args, **kwargs):
+        party = self.get_object()
+        if not party.public and request.user not in party.organizers.all():
+            raise Http404
+        return super().dispatch(request, *args, **kwargs)
 
-class PartyUpdate(UpdateView):
+
+class PartyUpdate(LoginRequiredMixin, UpdateView):
     model = Party
     template_name = 'parties/party_form.html'
     form_class = PartyForm
 
 
-class PartyCreate(CreateView):
+class PartyCreate(LoginRequiredMixin, CreateView):
     model = Party
     template_name = 'parties/party_form.html'
     form_class = PartyForm
@@ -51,10 +59,7 @@ class PartyCreate(CreateView):
             )
         party.save()
 
-        user = self.request.user
-        party.organizers.add(user)
-
-        party.save()
+        party.organizers.add(self.request.user)
 
         context = {
             'host': self.request.META.get('HTTP_HOST'),

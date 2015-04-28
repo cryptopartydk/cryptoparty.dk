@@ -3,11 +3,12 @@
 
 {% block content %}
 
+  {% if user.is_authenticated %}
     <a class="btn btn-primary" href="{% url 'parties:party-create' %}">
       <i class="glyphicon glyphicon-bullhorn"></i>
       Opret Cryptoparty
     </a>
-
+  {% endif %}
 
   <div class="row">
     <div class="col-md-12" id="list-wrapper">
@@ -17,7 +18,12 @@
         {% include 'parties/_party_list_table.html' with parties=upcoming_parties %}
       {% else %}
         <h3>
-        {% trans 'There are no upcoming parties!' %} <a href="{% url 'parties:party-create' %}">{% trans 'Start one?' %}</a>
+        {% trans 'There are no upcoming parties!' %}
+          {% if user.is_authenticated %}
+            <a href="{% url 'parties:party-create' %}">
+              {% trans 'Start one?' %}
+            </a>
+          {% endif %}
         </h3>
       {% endif %}
 
