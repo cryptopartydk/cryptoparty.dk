@@ -34,16 +34,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    # 'rest_framework',
-    # 'debug_toolbar',
-    # 'corsheaders',
+    'debug_toolbar',
+
+    'parties',
+    'people',
 
     'sekizai',
     'allauth',
     'allauth.account',
-
-    'parties',
-    'people',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

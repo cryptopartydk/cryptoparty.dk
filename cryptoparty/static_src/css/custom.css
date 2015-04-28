@@ -5,3 +5,39 @@
 .navbar {
     border-radius: 0;
 }
+
+.box {
+    margin: 0 auto;
+    width: 500px;
+    background-color: rgb(245, 245, 245);;
+    padding: 20px;
+}
+
+.box .form-control {
+    margin: 10px 0;
+    height: 65px;
+    font-size: 20px;
+}
+
+.box .btn {
+    font-size: 20px;
+    margin: 10px 0;
+    padding: 10px
+}
+
+.box .forgot-password {
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.box .input-group {
+    width: 100%;
+}
+
+.box.center {
+    text-align: center;
+}
+
+.box.center .btn {
+    margin: 40px auto;
+}

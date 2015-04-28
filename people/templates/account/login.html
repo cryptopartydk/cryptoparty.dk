@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load account %}
+{% load sekizai_tags %}
+
+{% block head_title %}Log ind{% endblock %}
+
+{% block content %}
+
+  <div class="box">
+
+    <h1>Log ind på Cryptoparty.dk</h1>
+
+    <p>
+      Hvis ikke du har en konto kan du <a href="{{ signup_url }}">oprette</a> en.
+    </p>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form class="login form-horizontal" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+          <div class="input-group">
+            <input type="text" name="login" class="form-control"
+                   placeholder="Brugernavn"/>
+            {{ form.login.errors }}
+          </div>
+
+          <div class="input-group">
+            <input type="password" name="password" class="form-control"
+                   placeholder="Kodeord"/>
+            {{ form.password.errors }}
+          </div>
+
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}"
+                   value="{{ redirect_field_value }}"/>
+          {% endif %}
+          <a class="pull-left forgot-password"
+             href="{% url 'account_reset_password' %}">Glemt kodeord?</a>
+          <button class="btn btn-success pull-right" type="submit">Log ind</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
