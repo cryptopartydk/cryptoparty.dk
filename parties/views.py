@@ -3,12 +3,55 @@ from django.http import HttpResponseRedirect, Http404
 from django.views.generic import (
     CreateView, DetailView, UpdateView, TemplateView,
 )
-from django.utils.translation import ugettext_lazy as _
 from paloma import TemplateMail
 from cryptoparty.mixins import LoginRequiredMixin
 
 from .models import Party, Venue
 from .forms import PartyForm
+
+
+def process_form(self, form, subject=None, template_name=None):
+    venue = form.cleaned_data.get('venue')
+    venue_name = form.cleaned_data.get('venue_name')
+    venue_address = form.cleaned_data.get('venue_address')
+
+    party = form.save(commit=False)
+
+    party_is_new = not bool(party.id)
+
+    if not venue and venue_name:
+        party.venue = Venue.objects.create(
+            name=venue_name,
+            address=venue_address,
+        )
+
+    party.save()
+
+    if party_is_new:
+        party.organizers.add(self.request.user)
+        party.save()
+
+    context = {
+        'host': self.request.META.get('HTTP_HOST'),
+        'party': party
+    }
+
+    if subject and template_name:
+        mail = TemplateMail(
+            subject=subject,
+            text_template_name=template_name,
+        )
+        mail.send(
+            to=self.request.user.email,
+            context=context
+        )
+
+    return HttpResponseRedirect(
+        reverse_lazy(
+            'parties:party-detail',
+            kwargs={'slug': party.slug}
+        )
+    )
 
 
 class PartyList(TemplateView):
@@ -39,6 +82,9 @@ class PartyUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'parties/party_form.html'
     form_class = PartyForm
 
+    def form_valid(self, form):
+        return process_form(self, form)
+
 
 class PartyCreate(LoginRequiredMixin, CreateView):
     model = Party
@@ -46,40 +92,9 @@ class PartyCreate(LoginRequiredMixin, CreateView):
     form_class = PartyForm
 
     def form_valid(self, form):
-
-        venue = form.cleaned_data.get('venue')
-        venue_name = form.cleaned_data.get('venue_name')
-        venue_address = form.cleaned_data.get('venue_address')
-
-        party = form.save(commit=False)
-        if not venue and venue_name:
-            party.venue = Venue.objects.create(
-                name=venue_name,
-                address=venue_address,
-            )
-        party.save()
-
-        party.organizers.add(self.request.user)
-
-        context = {
-            'host': self.request.META.get('HTTP_HOST'),
-            'party': party
-        }
-
-        if hasattr(self.object, 'email'):
-            mail = TemplateMail(
-                subject=_('Your cryptoparty has been created!'),
-                text_template_name='parties/email/new_party.txt',
-            )
-
-            mail.send(
-                to=user.email,
-                context=context
-            )
-
-        return HttpResponseRedirect(
-            reverse_lazy(
-                'parties:party-detail',
-                kwargs={'slug': party.slug}
-            )
+        return process_form(
+            self,
+            form,
+            subject='Your cryptoparty has been created!',
+            template_name='parties/email/new_party.txt',
         )
