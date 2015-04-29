@@ -12,12 +12,22 @@ CRYPTO_LEVELS = [
 
 
 class Profile(models.Model):
-    user = models.OneToOneField('auth.User', related_name='profile')
+    user = models.OneToOneField(
+        'auth.User',
+        related_name='profile'
+    )
 
-    crypto_level = models.CharField(null=True, blank=True,
-                                    choices=CRYPTO_LEVELS, max_length=20)
+    crypto_level = models.CharField(
+        null=True,
+        blank=True,
+        choices=CRYPTO_LEVELS, max_length=20
+    )
 
-    keybase_username = models.CharField(null=True, blank=True, max_length=100)
+    keybase_username = models.CharField(
+        null=True,
+        blank=True,
+        max_length=100
+    )
 
 
 @receiver(post_save, sender=User)

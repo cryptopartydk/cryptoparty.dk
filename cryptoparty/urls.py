@@ -1,5 +1,5 @@
 from allauth.account.views import LogoutView
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 from parties.models import Party
@@ -16,8 +16,7 @@ class FrontPageView(TemplateView):
         return context
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^logout/', LogoutView.as_view(), name='logout'),
     url(r'^accounts/profile/', ProfileView.as_view(), name='profile'),
     url(r'^accounts/', include('allauth.urls')),
@@ -33,4 +32,4 @@ urlpatterns = patterns(
     url(
         r'^$', FrontPageView.as_view()
     ),
-)
+]

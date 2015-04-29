@@ -1,7 +1,10 @@
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect, Http404
 from django.views.generic import (
-    CreateView, DetailView, UpdateView, TemplateView,
+    CreateView,
+    DetailView,
+    UpdateView,
+    TemplateView,
 )
 from paloma import TemplateMail
 from cryptoparty.mixins import LoginRequiredMixin
@@ -74,7 +77,11 @@ class PartyDetail(DetailView):
         party = self.get_object()
         if not party.public and request.user not in party.organizers.all():
             raise Http404
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(
+            request,
+            *args,
+            **kwargs
+        )
 
 
 class PartyUpdate(LoginRequiredMixin, UpdateView):

@@ -1,9 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils.functional import cached_property
 
 from django_extensions.db.fields import AutoSlugField
-import re
 from parties.managers import PartyQuerySet
 
 
@@ -19,26 +17,34 @@ class Party(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100,
+    )
 
-    slug = AutoSlugField(populate_from='title')
+    slug = AutoSlugField(
+        populate_from='title',
+    )
 
     description = models.TextField()
 
-    when = models.DateTimeField(help_text='YYYY-MM-DD HH:MM:SS')
+    when = models.DateTimeField(
+        help_text='YYYY-MM-DD HH:MM:SS',
+    )
 
     venue = models.ForeignKey(
         Venue,
         related_query_name="parties_here",
-        null=True
+        null=True,
     )
 
-    public = models.BooleanField(default=False)
+    public = models.BooleanField(
+        default=False,
+    )
 
     organizers = models.ManyToManyField(
         'auth.User',
         blank=True,
-        related_name='organizing_parties'
+        related_name='organizing_parties',
     )
 
     objects = PartyQuerySet.as_manager()
