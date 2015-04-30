@@ -4,3 +4,5 @@ __pycache__/
 .env
 db.sqlite
 .vagrant/
+cryptoparty/local_settings.py
+
