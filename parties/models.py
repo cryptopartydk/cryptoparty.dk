@@ -52,6 +52,7 @@ class Party(models.Model):
     class Meta:
         verbose_name = 'party'
         verbose_name_plural = 'parties'
+        ordering = ['when']
 
     def __str__(self):
         return '"{}" at {}'.format(self.title, self.venue)
