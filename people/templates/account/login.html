@@ -15,6 +15,8 @@
       Hvis ikke du har en konto kan du <a href="{{ signup_url }}">oprette</a> en.
     </p>
 
+    {{ form.non_field_errors }}
+
     <div class="row">
       <div class="col-md-12">
         <form class="login form-horizontal" method="POST" action="{% url 'account_login' %}">
