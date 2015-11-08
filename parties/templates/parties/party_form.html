@@ -3,10 +3,14 @@
 
 {% block content %}
 
+  {{ form.non_field_errors }}
+  {{ form.slug.errors }}
+
 <form action="" method="post" class="form">{% csrf_token %}
   {% include "_form_field.html" with field=form.title %}
   {% include "_form_field.html" with field=form.description %}
-  {% include "_form_field.html" with field=form.when datetime=True %}
+  {% include "_form_field.html" with field=form.start datetime=True %}
+  {% include "_form_field.html" with field=form.end datetime=True %}
   {% include "_form_field.html" with field=form.venue %}
   {% include "_form_field.html" with field=form.venue_name %}
   {% include "_form_field.html" with field=form.venue_address address=True %}

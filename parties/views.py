@@ -1,11 +1,12 @@
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.views.generic import (
     CreateView,
     DetailView,
     UpdateView,
     TemplateView,
-)
+    View)
+import icalendar
 from paloma import TemplateMail
 from cryptoparty.mixins import LoginRequiredMixin
 
@@ -111,3 +112,13 @@ class PartyCreate(LoginRequiredMixin, CreateView):
             subject='Your cryptoparty has been created!',
             template_name='parties/email/new_party.txt',
         )
+
+
+class CalendarFeed(View):
+    def get(self, *args):
+        cal = icalendar.Calendar()
+        for party in Party.objects.public():
+            if party.ical:
+                party_ical = icalendar.Event.from_ical(party.ical)
+                cal.add_component(party_ical)
+        return HttpResponse(content=cal.to_ical())

@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from django_extensions.db.fields import AutoSlugField
+import icalendar
 from parties.managers import PartyQuerySet
 
 
@@ -27,8 +28,14 @@ class Party(models.Model):
 
     description = models.TextField()
 
-    when = models.DateTimeField(
+    start = models.DateTimeField(
         help_text='YYYY-MM-DD HH:MM:SS',
+    )
+
+    end = models.DateTimeField(
+        help_text='YYYY-MM-DD HH:MM:SS',
+        null=True,
+        blank=True,
     )
 
     venue = models.ForeignKey(
@@ -47,15 +54,35 @@ class Party(models.Model):
         related_name='organizing_parties',
     )
 
+    ical = models.TextField(null=True, blank=True)
+
     objects = PartyQuerySet.as_manager()
 
     class Meta:
         verbose_name = 'party'
         verbose_name_plural = 'parties'
-        ordering = ['when']
+        ordering = ['start']
 
     def __str__(self):
         return '"{}" at {}'.format(self.title, self.venue)
 
     def get_absolute_url(self):
         return reverse('parties:party-detail', kwargs={'slug': self.slug})
+
+    def save(self, **kwargs):
+        if not self.slug:
+            super().save(**kwargs)
+        event = icalendar.Event()
+        event.add('dtstart', self.start)
+        if self.end:
+            event.add('dtend', self.end)
+        event.add('summary', self.title)
+        event.add(
+            'description',
+            '{}\n\n{}'.format(
+                self.get_absolute_url(),
+                self.description
+            )
+        )
+        self.ical = event.to_ical()
+        super().save(**kwargs)

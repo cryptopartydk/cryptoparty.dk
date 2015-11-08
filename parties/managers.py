@@ -8,7 +8,7 @@ class PartyQuerySet(QuerySet):
         return self.filter(public=True)
 
     def upcoming(self):
-        return self.filter(when__gt=timezone.now())
+        return self.filter(start__gt=timezone.now())
 
     def past(self):
-        return self.filter(when__lt=timezone.now())
+        return self.filter(start__lt=timezone.now())

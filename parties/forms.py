@@ -35,11 +35,18 @@ class PartyForm(forms.ModelForm):
 
     class Meta:
         model = Party
-        fields = '__all__'
+        fields = [
+            'title',
+            'description',
+            'start',
+            'end',
+            'public',
+        ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'when': forms.TextInput(attrs={'class': 'form-control'}),
+            'start': forms.TextInput(attrs={'class': 'form-control'}),
+            'end': forms.TextInput(attrs={'class': 'form-control'}),
             'venue': forms.TextInput(attrs={'class': 'form-control'}),
             'public': forms.CheckboxInput(attrs={'class': 'form-control'}),
         }

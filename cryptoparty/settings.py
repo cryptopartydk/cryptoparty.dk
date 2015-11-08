@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'sekizai',
     'allauth',
     'allauth.account',
+    'django_extensions',
 )
 
 TEMPLATES = [
@@ -122,3 +123,4 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    INSTALLED_APPS += ('debug_toolbar',)
