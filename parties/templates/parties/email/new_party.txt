@@ -5,13 +5,13 @@
 
 {% blocktrans %}Hello there. You are doing a cryptoparty! How awesome is that!?
 
-Here is a link you can use to share with the world:
+Here is a link you can use to share the event with the world:
 
 https://{{host}}{{party_url}}
 
 Remember to check <LINK> for guides and other stuff to help with your cryptoparty!
 
-Have a nice day and we look forward to hear about your awesome cryptoparty!
+Have a nice day and we look forward to hearing about your awesome cryptoparty!
 
 --
 The team at cryptoparty.dk{% endblocktrans %}
