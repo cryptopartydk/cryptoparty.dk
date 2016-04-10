@@ -2,18 +2,8 @@ from allauth.account.views import LogoutView
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
-from parties.models import Party
+from parties.views import PartyList
 from people.views import ProfileView
-
-
-class FrontPageView(TemplateView):
-    template_name = 'frontpage.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(FrontPageView, self).get_context_data(**kwargs)
-        context['upcoming'] = Party.objects.upcoming().public()
-        context['past'] = Party.objects.past().public()
-        return context
 
 
 urlpatterns = [
@@ -29,7 +19,5 @@ urlpatterns = [
         )
     ),
     url(r'^admin/', include(admin.site.urls)),
-    url(
-        r'^$', FrontPageView.as_view()
-    ),
+    url(r'^$', PartyList.as_view(), name='party-list'),
 ]

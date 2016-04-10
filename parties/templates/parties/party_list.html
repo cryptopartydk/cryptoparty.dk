@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% load sekizai_tags i18n %}
 
+{% block jumbotron %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Cryptoparty.dk - Dit privatliv starter her</h1>
+    <p>
+      Et Cryptoparty er en begivenhed hvor borgere lærer hinanden omkring sikring af deres privatliv og kommunikation på internettet.<br />
+      På disse sider kan du se hvilke Cryptoparties der er rundt omkring i Danmark. Du kan også starte dit eget!
+    </p>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
 
   {% if user.is_authenticated %}

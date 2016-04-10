@@ -13,19 +13,19 @@ import os
 import environ
 from django.core.urlresolvers import reverse_lazy
 
+src = lambda x: os.path.join(os.path.dirname(__file__), x)
+
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
-TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [x for x in env('ALLOWED_HOSTS').split(',') if x]
 
 # Application definition
 
 INSTALLED_APPS = (
-    'flat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,18 +42,26 @@ INSTALLED_APPS = (
     'allauth.account',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'sekizai.context_processors.sekizai',
-    "allauth.account.context_processors.account",
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [src('templates')],
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.core.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai',
+            ]
+        }
+    },
+]
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -89,8 +97,6 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 
-src = lambda x: os.path.join(os.path.dirname(__file__), x)
-
 STATIC_ROOT = src('static')
 MEDIA_ROOT = src('media')
 
@@ -98,13 +104,12 @@ STATICFILES_DIRS = (
     src('static_src'),
 )
 
-TEMPLATE_DIRS = [
-    src('templates'),
-]
-
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
