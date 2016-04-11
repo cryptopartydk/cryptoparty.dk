@@ -64,7 +64,13 @@ class PartyList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['upcoming_parties'] = Party.objects.upcoming().public()
-        context['past_parties'] = Party.objects.past().public()
+        context['past_parties'] = (
+            Party
+            .objects
+            .past()
+            .public()
+            .order_by('-when')
+        )
         return context
 
 
