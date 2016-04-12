@@ -58,10 +58,21 @@ TEMPLATES = [
                 'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 'sekizai.context_processors.sekizai',
+                'cryptoparty.settings.hidden_service_context',
             ]
         }
     },
 ]
+
+HIDDEN_SERVICE = 'http://cryptodkmvnurimp.onion'
+
+def hidden_service_context(request):
+    return {
+        'hidden_service_url': HIDDEN_SERVICE,
+        'is_hidden_service': request.META['HTTP_HOST'] == HIDDEN_SERVICE
+    }
+
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
