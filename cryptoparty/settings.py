@@ -69,9 +69,7 @@ HIDDEN_SERVICE = 'http://cryptodkmvnurimp.onion'
 def hidden_service_context(request):
     return {
         'hidden_service_url': HIDDEN_SERVICE,
-        'is_hidden_service': request.META['HTTP_HOST'] == HIDDEN_SERVICE
     }
-
 
 
 AUTHENTICATION_BACKENDS = (
