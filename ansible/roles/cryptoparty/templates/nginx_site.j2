@@ -42,6 +42,10 @@ server {
     add_header X-Frame-Options DENY;
     add_header X-Content-Type-Options nosniff;
 
+    gzip on;
+    gzip_comp_level 5;
+    gzip_types text/plain application/javascript text/css;
+
     ### Actual website stuff
     location /media  {
         alias /srv/cryptoparty/cryptoparty/media;
@@ -50,6 +54,8 @@ server {
     location /static {
         alias /srv/cryptoparty/cryptoparty/static;
         autoindex off;
+        expires 30d;
+        add_header Vary "Accept-Encoding";
     }
     location / {
         include uwsgi_params;
