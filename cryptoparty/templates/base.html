@@ -20,62 +20,72 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Cryptoparty.dk</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-          <!--<li>-->
-            <!--<a href="{% url 'parties:party-list' %}">-->
-              <!--<i class="glyphicon glyphicon-calendar"></i>-->
-              <!--Cryptoparties-->
-            <!--</a>-->
-          <!--</li>-->
-          </ul>
-          {% if user.is_authenticated %}
-            <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="{% url 'parties:party-create' %}">
-                <i class="glyphicon glyphicon-bullhorn"></i>
-                Opret Cryptoparty
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'profile' %}">
-                <i class="glyphicon glyphicon-user"></i>
-                {% user_display user %}
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'logout' %}">Logout</a>
-            </li>
+    <div id="wrapper">
+      <nav class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cryptoparty.dk</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            <!--<li>-->
+              <!--<a href="{% url 'parties:party-list' %}">-->
+                <!--<i class="glyphicon glyphicon-calendar"></i>-->
+                <!--Cryptoparties-->
+              <!--</a>-->
+            <!--</li>-->
             </ul>
-          {% else %}
+            {% if user.is_authenticated %}
+              <ul class="nav navbar-nav navbar-right">
+              <li>
+                <a href="{% url 'parties:party-create' %}">
+                  <i class="glyphicon glyphicon-bullhorn"></i>
+                  Opret Cryptoparty
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'profile' %}">
+                  <i class="glyphicon glyphicon-user"></i>
+                  {% user_display user %}
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'logout' %}">Logout</a>
+              </li>
+              </ul>
+            {% else %}
 
-            <div class="navbar-form navbar-right">
-              <a href="{% url 'account_login' %}" class="btn btn-success">Log ind</a>
-              <a href="{% url 'account_signup' %}" class="btn btn-default">Opret bruger</a>
-            </div>
-          {% endif %}
-        </div><!--/.navbar-collapse -->
+              <div class="navbar-form navbar-right">
+                <a href="{% url 'account_login' %}" class="btn btn-success">Log ind</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-default">Opret bruger</a>
+              </div>
+            {% endif %}
+          </div><!--/.navbar-collapse -->
+        </div>
+      </nav>
+
+      {% block jumbotron %}
+      {% endblock %}
+
+      <div class="container">
+      {% block content %}
+      {% endblock %}
       </div>
-    </nav>
+      <div class="push"></div>
+    </div>
 
-    {% block jumbotron %}
-    {% endblock %}
-
-    <div class="container">
-    {% block content %}
-    {% endblock %}
-    </div> <!-- /container -->
+    <div id="footer">
+      <a href="mailto:kontakt@cryptoparty.dk">kontakt@cryptoparty.dk</a> |
+      <a href="https://github.com/cryptopartydk/cryptoparty.dk">
+          Udvikling af Cryptoparty.dk
+      </a>
+    </div>
 
     <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

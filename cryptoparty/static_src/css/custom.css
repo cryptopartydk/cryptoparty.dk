@@ -1,3 +1,6 @@
+body, html {
+  height: 100%;
+}
 .jumbotron {
     margin-top: -20px;
 }
@@ -40,4 +43,16 @@
 
 .box.center .btn {
     margin: 40px auto;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -50px;
+}
+
+#footer, .push {
+    height: 50px;
+    text-align: center;
 }
