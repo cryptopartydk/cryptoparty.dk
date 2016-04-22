@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load sekizai_tags i18n %}
+{% load sekizai_tags i18n staticfiles %}
 
 {% block content %}
 
@@ -7,15 +7,79 @@
   {{ form.slug.errors }}
 
 <form action="" method="post" class="form">{% csrf_token %}
-  {% include "_form_field.html" with field=form.title %}
-  {% include "_form_field.html" with field=form.description %}
-  {% include "_form_field.html" with field=form.start datetime=True %}
-  {% include "_form_field.html" with field=form.end datetime=True %}
-  {% include "_form_field.html" with field=form.venue %}
-  {% include "_form_field.html" with field=form.venue_name %}
-  {% include "_form_field.html" with field=form.venue_address address=True %}
-  {% include "_form_field.html" with field=form.public %}
+  <div class="form-group" id="title-group">
+    {{ form.title.label }}
+    {{ form.title.errors }}
+    {{ form.title }}
+  </div>
+
+  <div class="form-group" id="description-group">
+    {{ form.description.label }}
+    {{ form.description.errors }}
+    {{ form.description }}
+  </div>
+
+  <div class="form-group" id="start-group">
+    {{ form.start.label }}
+    {{ form.start.errors }}
+    <div class="input-group">
+      {{ form.start }}
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group" id="end-group">
+    {{ form.end.label }}
+    {{ form.end.errors }}
+    <div class="input-group">
+      {{ form.end }}
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group" id="venue-group">
+    {{ form.venue.label }}
+    {{ form.venue.errors }}
+    {{ form.venue }}
+  </div>
+
+  <div class="form-group" id="venue-name-group">
+    {{ form.venue_name.label }}
+    {{ form.venue_name.errors }}
+    {{ form.venue_name }}
+  </div>
+
+  <div class="form-group" id="venue-address-group">
+    {{ form.venue_address.label }}
+    {{ form.venue_address.errors }}
+    {{ form.venue_address }}
+  </div>
+
+  <div class="form-group" id="public-group">
+    {{ form.public.label }}
+    {{ form.public.errors }}
+    {{ form.public }}
+  </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+{% addtoblock 'js' %}
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/dawa-autocomplete.js' %}"></script>
+    <script src="{% static 'js/party_form.js' %}"></script>
+{% endaddtoblock %}
+
+{% addtoblock 'css' %}
+  <link rel="stylesheet"
+        href="{% static 'css/bootstrap-datetimepicker.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"/>
+{% endaddtoblock %}
 
 {% endblock %}
