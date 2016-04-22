@@ -70,7 +70,7 @@ class PartyList(TemplateView):
             .objects
             .past()
             .public()
-            .order_by('-when')
+            .order_by('-start')
         )
         return context
 
