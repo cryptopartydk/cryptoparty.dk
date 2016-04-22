@@ -6,7 +6,7 @@ from .views import (
 
 urlpatterns = [
     url(
-        r'^calend[ae]r(|\.ics)(|\/)$',
+        r'^calend[ae]r\.ics$',
         CalendarFeed.as_view(),
         name='calendar'
     ),
