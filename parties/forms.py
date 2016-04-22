@@ -1,5 +1,7 @@
 import re
 from django import forms
+from django.utils.translation import gettext_lazy as _
+
 from .models import Party, Venue
 
 
@@ -41,6 +43,7 @@ class PartyForm(forms.ModelForm):
             'start',
             'end',
             'public',
+            'venue',
         ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -50,4 +53,28 @@ class PartyForm(forms.ModelForm):
             'venue': forms.TextInput(attrs={'class': 'form-control'}),
             'public': forms.CheckboxInput(attrs={'class': 'form-control'}),
         }
+
+    def clean(self):
+        data = self.cleaned_data
+        venue = data.get('venue', None)
+        venue_name = data.get('venue_name', None)
+        venue_address = data.get('venue_address', None)
+
+        if venue:
+            return data
+
+        if not venue and not (venue_name and venue_address):
+            if venue_name and not venue_address:
+                self.add_error('venue_address', _('Address is required.'))
+
+            if not venue_name and venue_address:
+                self.add_error('venue_name', _('Name of venue is required.'))
+
+            raise forms.ValidationError(
+                _('You have to specify either a venue name and address, or choose an existing venue from the dropdown.')
+            )
+
+        return data
+
+
 
