@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'sekizai',
     'allauth',
     'allauth.account',
-    'django_extensions',
 )
 
 TEMPLATES = [
