@@ -23,6 +23,9 @@
       </td>
       <td>
         {{ party.start }}
+        {% if party.end %}
+          - {{ party.end }}
+        {% endif %}
       </td>
       <td>
         {{ party.venue }}

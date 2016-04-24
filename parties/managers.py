@@ -1,4 +1,4 @@
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.utils import timezone
 
 
@@ -8,7 +8,18 @@ class PartyQuerySet(QuerySet):
         return self.filter(public=True)
 
     def upcoming(self):
-        return self.filter(start__gt=timezone.now())
+        now = timezone.now()
+        return self.filter(
+            Q(start__gt=now) |
+            Q(start__lt=now, end__gt=now),
+        )
 
     def past(self):
-        return self.filter(start__lt=timezone.now())
+        now = timezone.now()
+        return self.filter(
+            (
+                Q(end__lt=now) |
+                ~Q(start__lt=now, end__gt=now)
+            ),
+            start__lt=now
+        )

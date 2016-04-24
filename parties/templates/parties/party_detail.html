@@ -12,7 +12,12 @@
     </div>
 
     <div class="col-md-4">
-      <h3>{{ party.start }}</h3>
+      <h3>
+          {% trans 'Start' %}: {{ party.start }}<br />
+        {% if party.end %}
+          {% trans 'End' %}: {{ party.end }}
+        {% endif %}
+      </h3>
       <h3>{{ party.venue.name }}</h3>
       <h3>{{ party.venue.address }}</h3>
       {% if user in party.organizers.all %}
