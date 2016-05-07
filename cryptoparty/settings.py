@@ -58,7 +58,6 @@ TEMPLATES = [
                 'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 'sekizai.context_processors.sekizai',
-                'cryptoparty.settings.hidden_service_context',
             ]
         }
     },
