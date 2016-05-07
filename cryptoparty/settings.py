@@ -120,3 +120,29 @@ DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     INSTALLED_APPS += ('debug_toolbar',)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'console': {
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
+ADMINS = (
+    ('Cryptoparty admin', env('ADMIN_EMAIL')),
+)
